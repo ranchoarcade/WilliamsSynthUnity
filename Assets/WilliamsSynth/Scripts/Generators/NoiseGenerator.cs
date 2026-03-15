@@ -4,9 +4,9 @@ namespace WilliamsSynth
     /// Implements the LITEN and NOISE synthesis routines from VSNDRM1.SRC.
     ///
     /// Commands handled:
-    ///   $10  LITE   → LITEN routine  — rising-frequency noise burst (~0.7 s)
-    ///   $14  APPEAR → LITEN routine  — falling-frequency noise burst (~1.1 s)
-    ///   $13  TURBO  → NOISE  routine — constant-frequency decaying noise (~0.5 s)
+    ///   $11  LITE   → LITEN routine  — rising-frequency noise burst (~0.7 s)
+    ///   $15  APPEAR → LITEN routine  — falling-frequency noise burst (~1.1 s)
+    ///   $14  TURBO  → NOISE  routine — constant-frequency decaying noise (~0.5 s)
     ///
     /// ── LITEN (LIGHTNING AND APPEAR) algorithm (VSNDRM1.SRC lines 265–289) ─────────────────────────
     ///   SOUND = $FF at start.
@@ -69,7 +69,7 @@ namespace WilliamsSynth
 
             switch (commandId)
             {
-                // ── LITE ($10) — LITEN: DFREQ=+1, LFREQ=1, CYCNT=3 ──────────
+                // ── LITE ($11) — LITEN: DFREQ=+1, LFREQ=1, CYCNT=3 ──────────
                 case SoundCommand.LITE:
                     _mode              = NoiseMode.Liten;
                     _dfreq             = 1;
@@ -81,7 +81,7 @@ namespace WilliamsSynth
                     UpdateLitenCycles();
                     break;
 
-                // ── APPEAR ($14) — LITEN: DFREQ=$FE(−2), LFREQ=$C0, CYCNT=16 ─
+                // ── APPEAR ($15) — LITEN: DFREQ=$FE(−2), LFREQ=$C0, CYCNT=16 ─
                 case SoundCommand.APPEAR:
                     _mode              = NoiseMode.Liten;
                     _dfreq             = unchecked((sbyte)0xFE); // −2 signed
@@ -93,7 +93,7 @@ namespace WilliamsSynth
                     UpdateLitenCycles();
                     break;
 
-                // ── TURBO ($13) — NOISE: DECAY=1, NFRQ1=1, NAMP=$FF, CYCNT=32 ─
+                // ── TURBO ($14) — NOISE: DECAY=1, NFRQ1=1, NAMP=$FF, CYCNT=32 ─
                 case SoundCommand.TURBO:
                     _mode              = NoiseMode.Noise;
                     _decay             = 0x01;
@@ -102,7 +102,7 @@ namespace WilliamsSynth
                     _namp              = 0xFF;
                     _cycntNoise        = 0x20;
                     _cycntNoiseCurrent = 0x20;
-                    _nfflg             = true;  // NFFLG=$20 != 0 → constant pitch
+                    _nfflg             = true;  // NFFLG=$20 != 0 → pitch drops
                     _sound             = 0x80;  // silence until first LFSR bit
                     _active            = true;
                     UpdateNoiseCycles();
@@ -203,12 +203,12 @@ namespace WilliamsSynth
             // Update NFRQ1 (INX / STX NFRQ1 vs. reload from NFRQ1 init)
             if (_nfflg)
             {
-                _nfrq1 = _nfrq1Init;            // constant pitch: reset delay counter
+                ushort next = (ushort)(_nfrq1 + 1);
+                _nfrq1 = next == 0 ? (ushort)1 : next; // guard: NFRQ1=0 would freeze
             }
             else
             {
-                ushort next = (ushort)(_nfrq1 + 1);
-                _nfrq1 = next == 0 ? (ushort)1 : next; // guard: NFRQ1=0 would freeze
+                _nfrq1 = _nfrq1Init;            // constant pitch: reset delay counter
             }
             UpdateNoiseCycles();
         }

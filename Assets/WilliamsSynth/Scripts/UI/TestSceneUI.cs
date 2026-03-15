@@ -276,7 +276,7 @@ namespace WilliamsSynth
             ButtonRow(c, "$C0", ColSeqLo, new (string, Action)[]
             {
                 ("Swarmer Hit\nSWHSND/PROTV",     () => { ShowCommandInfo(SoundCommand.PROTV); _board?.TriggerSwarmerHit(); }),
-                ("Laser\nLASSND/APPEAR",           () => { ShowCommandInfo(SoundCommand.APPEAR); _board?.TriggerLaserFire(); }),
+                ("Laser\nLASSND/TURBO",           () => { ShowCommandInfo(SoundCommand.TURBO); _board?.TriggerLaserFire(); }),
                 ("Hyperspace\n(direct)/HYPER",     () => { ShowCommandInfo(SoundCommand.HYPER); _board?.TriggerHyperspace(); }),
                 ("Lander Grab\nLGSND/HYPER",       () => { ShowCommandInfo(SoundCommand.HYPER); _board?.TriggerLanderGrab(); }),
                 ("Lander Shoot\nLSHSND/DP1V",      () => { ShowCommandInfo(SoundCommand.DP1V); _board?.TriggerLanderShoot(); }),
