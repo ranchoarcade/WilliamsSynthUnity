@@ -100,13 +100,12 @@ namespace WilliamsSynth
             // $12 BGEND — Background end (not a GWAVE command)
             new byte[] { 0, 0, 0, 0, 0, 0, 0 },
 
-            // $13 TURBO — Turbine startup
-            // FCB $12,$06,$00,$FF,1,9,TRBPAT-GFRTAB
-            new byte[] { 0x12, 0x06, 0x00, 0xFF, 0x01, 0x09, FrequencyTables.TRBPAT },
+            // $13 BGEND (not a GWAVE command)
+            new byte[] { 0, 0, 0, 0, 0, 0, 0 },
 
-            // $14–$1F — NOISE, FNOISE, SCREAM, RADIO, HYPER, ORGAN, VARI commands
+            // $14 LASER, $15 APPEAR, $16 THRUST, etc. — NOISE, FNOISE, etc.
             // These are handled by their own generators, not GWaveGenerator.
-            new byte[] { 0, 0, 0, 0, 0, 0, 0 }, // $14 APPEAR
+            new byte[] { 0, 0, 0, 0, 0, 0, 0 }, // $14 LASER
             new byte[] { 0, 0, 0, 0, 0, 0, 0 }, // $15 THRUST
             new byte[] { 0, 0, 0, 0, 0, 0, 0 }, // $16 CANNON
             new byte[] { 0, 0, 0, 0, 0, 0, 0 }, // $17 RADIO

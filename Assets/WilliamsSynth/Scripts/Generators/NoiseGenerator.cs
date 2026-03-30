@@ -6,7 +6,7 @@ namespace WilliamsSynth
     /// Commands handled:
     ///   $11  LITE   → LITEN routine  — rising-frequency noise burst (~0.7 s)
     ///   $15  APPEAR → LITEN routine  — falling-frequency noise burst (~1.1 s)
-    ///   $14  TURBO  → NOISE  routine — constant-frequency decaying noise (~0.5 s)
+    ///   $14  LASER  → NOISE  routine — constant-frequency decaying noise (~0.5 s)
     ///
     /// ── LITEN (LIGHTNING AND APPEAR) algorithm (VSNDRM1.SRC lines 265–289) ─────────────────────────
     ///   SOUND = $FF at start.
@@ -93,8 +93,8 @@ namespace WilliamsSynth
                     UpdateLitenCycles();
                     break;
 
-                // ── TURBO ($14) — NOISE: DECAY=1, NFRQ1=1, NAMP=$FF, CYCNT=32 ─
-                case SoundCommand.TURBO:
+                // ── LASER ($14) — NOISE: DECAY=1, NFRQ1=1, NAMP=$FF, CYCNT=32 ─
+                case SoundCommand.LASER:
                     _mode              = NoiseMode.Noise;
                     _decay             = 0x01;
                     _nfrq1             = 0x0001;

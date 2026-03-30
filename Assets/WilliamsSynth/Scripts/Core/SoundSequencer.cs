@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace WilliamsSynth
 {
@@ -62,7 +63,9 @@ namespace WilliamsSynth
         {
             // Priority check: drop if strictly lower (equal priority can interrupt)
             if (_active && seq.Priority < _current.Priority)
+            {
                 return;
+            }
 
             if (seq.Steps == null || seq.Steps.Length == 0)
             {

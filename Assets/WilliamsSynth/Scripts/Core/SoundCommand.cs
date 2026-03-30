@@ -76,8 +76,8 @@ namespace WilliamsSynth
         /// <summary>$13 — BGEND: Background end (stops BG1FLG).</summary>
         public const byte BGEND    = 0x13;
 
-        /// <summary>$14 — TURBO: Turbo (FNOISE with frequency decay).</summary>
-        public const byte TURBO    = 0x14;
+        /// <summary>$14 — LASER: Laser fire (FNOISE with frequency decay).</summary>
+        public const byte LASER    = 0x14;
 
         /// <summary>$15 — APPEAR: Appear — falling noise burst.</summary>
         public const byte APPEAR   = 0x15;
@@ -144,7 +144,7 @@ namespace WilliamsSynth
             LITE    => "LITE",
             BONV    => "BONV",
             BGEND   => "BGEND",
-            TURBO   => "TURBO",
+            LASER   => "LASER",
             APPEAR  => "APPEAR",
             THRUST  => "THRUST",
             CANNON  => "CANNON",

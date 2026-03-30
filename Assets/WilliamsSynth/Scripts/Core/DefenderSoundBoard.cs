@@ -149,16 +149,16 @@ namespace WilliamsSynth
 
         // ── P3 test helpers ───────────────────────────────────────────────────────
 
-        [ContextMenu("Test / LITE ($10)")]
+        [ContextMenu("Test / LITE ($11)")]
         public void TestLite()   { StopSmokeTest(); _emulator.DispatchCommand(SoundCommand.LITE);   }
 
-        [ContextMenu("Test / APPEAR ($14)")]
+        [ContextMenu("Test / APPEAR ($15)")]
         public void TestAppear() { StopSmokeTest(); _emulator.DispatchCommand(SoundCommand.APPEAR); }
 
-        [ContextMenu("Test / TURBO ($13)")]
-        public void TestTurbo()  { StopSmokeTest(); _emulator.DispatchCommand(SoundCommand.TURBO);  }
+        [ContextMenu("Test / LASER ($14)")]
+        public void TestLaser()  { StopSmokeTest(); _emulator.DispatchCommand(SoundCommand.LASER);  }
 
-        [ContextMenu("Test / BG1 ($0E) start")]
+        [ContextMenu("Test / BG1 ($0F) start")]
         public void TestBg1On()  { StopSmokeTest(); _emulator.SetBg1(true);  }
 
         [ContextMenu("Test / BG1 stop")]
@@ -170,7 +170,7 @@ namespace WilliamsSynth
         [ContextMenu("Test / THRUST stop")]
         public void TestThrustOff() { _emulator.SetThrust(false); }
 
-        [ContextMenu("Test / CANNON ($16)")]
+        [ContextMenu("Test / CANNON ($17)")]
         public void TestCannon() { StopSmokeTest(); _emulator.DispatchCommand(SoundCommand.CANNON); }
 
         // ── P4 GWAVE test helpers ─────────────────────────────────────────────────
@@ -181,7 +181,7 @@ namespace WilliamsSynth
         [ContextMenu("Test / BBSV ($05) — Big Ben")]
         public void TestBbsv()   { StopSmokeTest(); _emulator.DispatchCommand(SoundCommand.BBSV);   }
 
-        [ContextMenu("Test / BONV ($11) — Explosion/Bonus")]
+        [ContextMenu("Test / BONV ($12) — Explosion/Bonus")]
         public void TestBonv()   { StopSmokeTest(); _emulator.DispatchCommand(SoundCommand.BONV);   }
 
         [ContextMenu("Test / STDV ($02) — Start Distorto")]
@@ -192,35 +192,35 @@ namespace WilliamsSynth
 
         // ── P5 VARI test helpers ──────────────────────────────────────────────────
 
-        [ContextMenu("Test / SAW ($1C)")]
+        [ContextMenu("Test / SAW ($1D)")]
         public void TestSaw()    { StopSmokeTest(); _emulator.DispatchCommand(SoundCommand.SAW);    }
 
-        [ContextMenu("Test / FOSHIT ($1D)")]
+        [ContextMenu("Test / FOSHIT ($1E)")]
         public void TestFoshit() { StopSmokeTest(); _emulator.DispatchCommand(SoundCommand.FOSHIT); }
 
-        [ContextMenu("Test / QUASAR ($1E)")]
+        [ContextMenu("Test / QUASAR ($1F)")]
         public void TestQuasar() { StopSmokeTest(); _emulator.DispatchCommand(SoundCommand.QUASAR); }
 
-        [ContextMenu("Test / CABSHK ($1F)")]
+        [ContextMenu("Test / CABSHK ($20)")]
         public void TestCabshk() { StopSmokeTest(); _emulator.DispatchCommand(SoundCommand.CABSHK); }
 
         // ── P6 test helpers ───────────────────────────────────────────────────────
 
-        [ContextMenu("Test / SCREAM ($19) — 4-voice wail")]
+        [ContextMenu("Test / SCREAM ($1A) — 4-voice wail")]
         public void TestScream() { StopSmokeTest(); _emulator.DispatchCommand(SoundCommand.SCREAM); }
 
-        [ContextMenu("Test / RADIO ($17) — warbling sweep")]
+        [ContextMenu("Test / RADIO ($18) — warbling sweep")]
         public void TestRadio()  { StopSmokeTest(); _emulator.DispatchCommand(SoundCommand.RADIO);  }
 
-        [ContextMenu("Test / HYPER ($18) — hyperspace sweep")]
+        [ContextMenu("Test / HYPER ($19) — hyperspace sweep")]
         public void TestHyper()  { StopSmokeTest(); _emulator.DispatchCommand(SoundCommand.HYPER);  }
 
         // ── P7 ORGAN test helpers ─────────────────────────────────────────────────
 
-        [ContextMenu("Test / ORGANT ($1A) — Bach Toccata")]
+        [ContextMenu("Test / ORGANT ($1B) — Bach Toccata")]
         public void TestOrgant() { StopSmokeTest(); _emulator.DispatchCommand(SoundCommand.ORGANT); }
 
-        [ContextMenu("Test / ORGANN ($1B) — Phantom")]
+        [ContextMenu("Test / ORGANN ($1C) — Phantom")]
         public void TestOrgann() { StopSmokeTest(); _emulator.DispatchCommand(SoundCommand.ORGANN); }
 
         // ── P8 sequence test helpers ──────────────────────────────────────────────

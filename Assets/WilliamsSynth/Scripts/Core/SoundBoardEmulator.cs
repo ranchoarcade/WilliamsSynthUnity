@@ -12,16 +12,16 @@ namespace WilliamsSynth
     ///
     /// ── Generator allocation ─────────────────────────────────────────────────────
     ///   _gwave   : GWaveGenerator  — $01–$0C (HBDV–ED12) + $11 (BONV)
-    ///   _noise   : NoiseGenerator  — $10 LITE, $13 TURBO, $14 APPEAR
-    ///   _fnoise  : FilteredNoiseGenerator — $16 CANNON (one-shot transient)
-    ///   _bg1     : FilteredNoiseGenerator — $0E BG1 (persistent loop, stopped by $12 BGEND)
-    ///   _thrust  : FilteredNoiseGenerator — $15 THRUST (persistent loop, stopped by SetThrust(false))
-    ///   _vari    : VariWaveGenerator       — $1C–$1F (SAW / FOSHIT / QUASAR / CABSHK)
-    ///   _scream  : ScreamGenerator         — $19 SCREAM
-    ///   _radio   : RadioGenerator          — $17 RADIO
-    ///   _hyper   : HyperGenerator          — $18 HYPER
-    ///   _organ   : OrganGenerator          — $1A ORGANT, $1B ORGANN
-    ///   _spinner : VariWaveGenerator       — $0D SP1 (stub — parameters not yet extracted)
+    ///   _noise   : NoiseGenerator  — $11 LITE, $14 LASER, $15 APPEAR
+    ///   _fnoise  : FilteredNoiseGenerator — $17 CANNON (one-shot transient)
+    ///   _bg1     : FilteredNoiseGenerator — $0F BG1 (persistent loop, stopped by $13 BGEND)
+    ///   _thrust  : FilteredNoiseGenerator — $16 THRUST (persistent loop, stopped by SetThrust(false))
+    ///   _vari    : VariWaveGenerator       — $1D–$20 (SAW / FOSHIT / QUASAR / CABSHK)
+    ///   _scream  : ScreamGenerator         — $1A SCREAM
+    ///   _radio   : RadioGenerator          — $18 RADIO
+    ///   _hyper   : HyperGenerator          — $19 HYPER
+    ///   _organ   : OrganGenerator          — $1B ORGANT, $1C ORGANN
+    ///   _spinner : VariWaveGenerator       — $0E SP1 (stub — parameters not yet extracted)
     ///
     /// ── Foreground exclusivity ────────────────────────────────────────────────────
     ///   The original 6800 runs exactly one foreground routine at a time. When a new
@@ -50,7 +50,7 @@ namespace WilliamsSynth
         private readonly OrganGenerator         _organ;
 
         // ── Persistent generators (loop until explicitly stopped) ─────────────────
-        private readonly FilteredNoiseGenerator _bg1;      // $0E BG1 / $12 BGEND
+        private readonly FilteredNoiseGenerator _bg1;      // $0E BG1 / $13 BGEND
         private readonly FilteredNoiseGenerator _thrust;   // $15 THRUST
         private readonly VariWaveGenerator      _spinner;  // $0D SP1 (stub)
 
@@ -140,53 +140,53 @@ namespace WilliamsSynth
                     TriggerForeground(_gwave, cmd);
                     break;
 
-                // ── Persistent / special $0D–$12 ──────────────────────────────────
+                // ── Persistent / special $0E–$13 ──────────────────────────────────
                 case SoundCommand.SP1:
-                    // $0D — spinner VARI preset not yet extracted; stub
+                    // $0E — spinner VARI preset not yet extracted; stub
                     break;
 
                 case SoundCommand.BG1:
-                    // $0E — start persistent background engine hum
+                    // $0F — start persistent background engine hum
                     _bg1.Trigger(SoundCommand.BG1);
                     break;
 
                 case SoundCommand.BG2INC:
-                    // $0F — background level increment; not implemented
+                    // $10 — background level increment; not implemented
                     break;
 
                 case SoundCommand.LITE:
-                    // $10 — rising swept noise
+                    // $11 — rising swept noise
                     TriggerForeground(_noise, SoundCommand.LITE);
                     break;
 
                 case SoundCommand.BONV:
-                    // $11 — GWAVE explosion/bonus tone
+                    // $12 — GWAVE explosion/bonus tone
                     TriggerForeground(_gwave, SoundCommand.BONV);
                     break;
 
                 case SoundCommand.BGEND:
-                    // $12 — stop background engine hum
+                    // $13 — stop background engine hum
                     _bg1.Stop();
                     break;
 
-                case SoundCommand.TURBO:
-                    // $13 — turbo burst (NOISE, not FNOISE — authentic per VSNDRM1.SRC)
-                    TriggerForeground(_noise, SoundCommand.TURBO);
+                case SoundCommand.LASER:
+                    // $14 — laser burst (NOISE, not FNOISE — authentic per VSNDRM1.SRC)
+                    TriggerForeground(_noise, SoundCommand.LASER);
                     break;
 
                 case SoundCommand.APPEAR:
-                    // $14 — enemy appear sweep
+                    // $15 — enemy appear sweep
                     TriggerForeground(_noise, SoundCommand.APPEAR);
                     break;
 
                 case SoundCommand.THRUST:
-                    // $15 — persistent thrust loop (dedicated generator, independent of CANNON)
+                    // $16 — persistent thrust loop (dedicated generator, independent of CANNON)
                     // Not routed through TriggerForeground — THRUST is persistent.
                     _thrust.Trigger(SoundCommand.THRUST);
                     break;
 
                 case SoundCommand.CANNON:
-                    // $16 — one-shot cannon crack
+                    // $17 — one-shot cannon crack
                     TriggerForeground(_fnoise, SoundCommand.CANNON);
                     break;
 
@@ -210,7 +210,7 @@ namespace WilliamsSynth
                     TriggerForeground(_organ, SoundCommand.ORGANN);
                     break;
 
-                // ── VARI presets $1C–$1F ──────────────────────────────────────────
+                // ── VARI presets $1D–$20 ──────────────────────────────────────────
                 case SoundCommand.SAW:
                 case SoundCommand.FOSHIT:
                 case SoundCommand.QUASAR:
@@ -231,9 +231,9 @@ namespace WilliamsSynth
         {
             if (_foreground != null && _foreground != gen)
             {
-                UnityEngine.Debug.Log(
-                    $"[SoundBoard] Preempt: {_foreground.GetType().Name} stopped " +
-                    $"→ {gen.GetType().Name} cmd 0x{cmd:X2}");
+          //      UnityEngine.Debug.Log(
+           //         $"[SoundBoard] Preempt: {_foreground.GetType().Name} stopped " +
+            //        $"→ {gen.GetType().Name} cmd 0x{cmd:X2}");
                 _foreground.Stop();
             }
             _foreground = gen;

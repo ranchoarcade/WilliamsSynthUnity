@@ -276,7 +276,7 @@ namespace WilliamsSynth
             ButtonRow(c, "$C0", ColSeqLo, new (string, Action)[]
             {
                 ("Swarmer Hit\nSWHSND/PROTV",     () => { ShowCommandInfo(SoundCommand.PROTV); _board?.TriggerSwarmerHit(); }),
-                ("Laser\nLASSND/TURBO",           () => { ShowCommandInfo(SoundCommand.TURBO); _board?.TriggerLaserFire(); }),
+                ("Laser\nLASSND/LASER",           () => { ShowCommandInfo(SoundCommand.LASER); _board?.TriggerLaserFire(); }),
                 ("Hyperspace\n(direct)/HYPER",     () => { ShowCommandInfo(SoundCommand.HYPER); _board?.TriggerHyperspace(); }),
                 ("Lander Grab\nLGSND/HYPER",       () => { ShowCommandInfo(SoundCommand.HYPER); _board?.TriggerLanderGrab(); }),
                 ("Lander Shoot\nLSHSND/DP1V",      () => { ShowCommandInfo(SoundCommand.DP1V); _board?.TriggerLanderShoot(); }),
@@ -369,7 +369,7 @@ namespace WilliamsSynth
                 return "VARI";
             return cmdId switch
             {
-                SoundCommand.LITE    => "NOISE",
+                SoundCommand.LASER   => "NOISE",
                 SoundCommand.APPEAR  => "FNOISE",
                 SoundCommand.THRUST  => "FNOISE",
                 SoundCommand.CANNON  => "FNOISE",
@@ -739,7 +739,7 @@ namespace WilliamsSynth
             _rawCmdField = InputFld("RawCmd", row, 90, "0x10");
             MakeButton("Send", row, ColRaw, SmBtnW, OnSendRaw);
             // quick-fire hints
-            MakeText("  e.g.  0x10=LITE  0x11=BONV  0x13=TURBO  0x19=SCREAM",
+            MakeText("  e.g.  0x11=LITE  0x12=BONV  0x14=LASER  0x1A=SCREAM",
                      row, FontSz - 2, ColTextDim);
         }
 
